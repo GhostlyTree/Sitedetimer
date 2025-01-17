@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timer Lycée</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    h1 {
+      font-size: 2rem;
+    }
+    #timer {
+      font-size: 5rem;
+      font-weight: bold;
+      color: #007BFF;
+    }
+    #event {
+      font-size: 1.5rem;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Prochaine sonnerie dans :</h1>
+  <div id="timer">--:--:--</div>
+  <div id="event">Aucune sonnerie trouvée.</div>
+  <script src="timer.js"></script>
+</body>
+</html>
