@@ -1,4 +1,6 @@
-// Liste des horaires des sonneries (en heures et minutes)
+console.log("Le script JavaScript est chargé."); // Test initial
+
+// Liste des horaires des sonneries
 const schedule = [
   { time: "08:10", label: "Début des cours" },
   { time: "09:05", label: "Fin du premier cours" },
@@ -15,10 +17,14 @@ const schedule = [
   { time: "17:50", label: "Fin de la journée" },
 ];
 
-// Fonction pour obtenir l'heure actuelle en minutes
+console.log("Horaires des sonneries chargés :", schedule);
+
+// Fonction pour obtenir l'heure actuelle
 function getCurrentMinutes() {
   const now = new Date();
-  return now.getHours() * 60 + now.getMinutes();
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+  console.log("Heure actuelle en minutes :", currentMinutes);
+  return currentMinutes;
 }
 
 // Fonction pour obtenir le prochain événement
@@ -30,23 +36,15 @@ function getNextEvent() {
     const eventMinutes = hours * 60 + minutes;
 
     if (eventMinutes > currentMinutes) {
+      console.log("Prochain événement trouvé :", schedule[i]);
       return {
         label: schedule[i].label,
         remainingMinutes: eventMinutes - currentMinutes,
       };
     }
   }
+  console.log("Aucun événement trouvé.");
   return null; // Aucune sonnerie restante
-}
-
-// Fonction pour convertir le temps restant en format HH:MM:SS
-function formatTime(minutesRemaining) {
-  const hours = Math.floor(minutesRemaining / 60);
-  const minutes = minutesRemaining % 60;
-  const seconds = 59 - new Date().getSeconds(); // Seconde en cours
-  return `${hours.toString().padStart(2, "0")}:${minutes
-    .toString()
-    .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 }
 
 // Fonction pour mettre à jour le timer
@@ -56,7 +54,15 @@ function updateTimer() {
   const nextEvent = getNextEvent();
 
   if (nextEvent) {
-    timerElement.textContent = formatTime(nextEvent.remainingMinutes);
+    const hours = Math.floor(nextEvent.remainingMinutes / 60);
+    const minutes = nextEvent.remainingMinutes % 60;
+    const seconds = 59 - new Date().getSeconds();
+    const formattedTime = `${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+
+    console.log("Temps restant formaté :", formattedTime);
+    timerElement.textContent = formattedTime;
     eventElement.textContent = `Prochaine sonnerie : ${nextEvent.label}`;
   } else {
     timerElement.textContent = "--:--:--";
@@ -64,6 +70,6 @@ function updateTimer() {
   }
 }
 
-// Mettre à jour le timer toutes les secondes
+// Lancer l'update toutes les secondes
 setInterval(updateTimer, 1000);
 updateTimer();
